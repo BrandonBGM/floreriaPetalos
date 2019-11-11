@@ -1,21 +1,26 @@
 {% extends "core/base.html" %}
 
 {% block titulo %}
-    Galeria de Peliculas - Cine Romeo
+Galeria de Peliculas - Cine Romeo
 {% endblock titulo %}
 
 {% load static %}
 
 {% block contenido %}
 
-        <div class="text-center">
-            <h2>Listado Flores</h2>
-        </div>
-        <div id="productsView" class="container">
-            <h3>Rosa Azul</h3>
-            <img src="{% static 'core/img/rosaazul.png' %}">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, praesentium. Doloribus adipisci aperiam architecto?
-                Id a dignissimos sint, reiciendis explicabo, nobis ipsum, ut quos pariatur illum eligendi repellat officia
+<!--
+<div class="container text-center">
+    <div class="text-center">
+        <h2>Listado Flores</h2>
+    </div>
+    <div id="productsView" class="container">
+        <h3>Rosa Azul</h3>
+        <img src="{% static 'core/img/rosaazul.png' %}" width="300">
+        <div class="product-info panel">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos, praesentium. Doloribus adipisci aperiam
+                architecto?
+                Id a dignissimos sint, reiciendis explicabo, nobis ipsum, ut quos pariatur illum eligendi repellat
+                officia
                 dolor.
             </p>
             <div>Ver Flor</div>
@@ -23,20 +28,173 @@
                 <a href="">Eliminar</a>
             </div>
         </div>
-        {% for f in listafloor %}
-        <div id="productsView" class="container">
-            <h3>{{f.name}}</h3>
-            <img src="{{ f.fotografia.url }}">
-            <p>{{f.descripcion}} </p>
-            <div>Ver Flor</div>
-            <div>
-                <a href="{% url 'ELIMINAR' f.name %}">Eliminar</a>
+    </div>
+</div>
+-->
+<h1 class="card-header" style="align-self: center; text-align: center;">Galeria de Flores</h1>
+<section class="content">
+    <div class="container text-center" style="width: 300px; display: block; align-self: center;">
+        <div class="products">
+            {% for f in listafloor %}
+            <div id="products" class="white-panel">
+                <h3 class="card-header" style="align-self: center">{{f.name}}</h3>
+                <img src="{{ f.fotografia.url }}" width="300">
+                <div class="product-info panel"><hr>
+                    <p class="card-text" style="align-self: center">{{f.descripcion}}</p>
+                    <li class="list-group-item" style="align-self: center">Precio: ${{f.valor}}</li>
+                    <li class="list-group-item" style="align-self: center">Ver Flor</li>
+                    <p>
+                        <div>
+                            <a class="btn btn-warning" href="{% url 'ELIMINAR' f.name %}"><i
+                                    class="fa fa-trash-o"></i> Eliminar</a>
+                        </div>
+                        <p></p>
+                        <div>
+                            <a class="btn btn-warning" href="{% url 'AGREGAR_CARRO' f.name %}"><i
+                                    class="fa fa-cart-plus"></i> Agregar a
+                                Carro</a>
+                        </div>
+                    </p>
+                </div>
             </div>
-            <div>
-                <a href="{% url 'AGREGAR_CARRO' f.name %}">Agregar a Carro</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!--
+{% for f in listafloor %}
+<div class="jumbotron">
+        <h1 class="display-3">{{f.name}}</h1>
+        <p class="lead"><img src="{{ f.fotografia.url }}" width="300"></p>
+        <hr class="my-4">
+        <p>{{f.descripcion}}</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="{% url 'ELIMINAR' f.name %}" role="button"> Eliminar</a>
+          <a class="btn btn-primary btn-lg" href="{% url 'AGREGAR_CARRO' f.name %}" role="button"> Agregar a
+                Carro</a>
+        </p>
+      </div>
+{% endfor %}
+
+
+{% for f in listafloor %}
+<div class="row" style="align-self: center">
+<div class="card mb-3">
+        <h3 class="card-header" style="align-self: center">{{f.name}}</h3>
+        <div class="card-body">
+        </div>
+        <img style="width: 300px; display: block; align-self: center;" src="{{ f.fotografia.url }}" alt="Card image">
+        <div class="card-body">
+          <p class="card-text" style="align-self: center">{{f.descripcion}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="align-self: center">Precio: ${{f.valor}}</li>
+        </ul>
+        <div class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'ELIMINAR' f.name %}" role="button" style="text-align: justify;"> Eliminar</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'AGREGAR_CARRO' f.name %}" role="button" style="align-self: center"> Agregar a Carro</a>
+        </div>
+      </div>
+</div>
+{% endfor %}   
+
+-->
+
+
+<!--
+{% for f in listafloor %} 
+<section>
+    <div class="container text-center">
+        <div>
+            
+            <div id="products" class="products white-panel">
+                <img src="{{ f.fotografia.url }}" width="300">
+                <div>
+                    <p>{{f.descripcion}} </p>
+                    <p>Precio: ${{f.valor}} </p>
+                    <div>Ver Flor</div>
+                    <div>
+                        <a class="btn btn-warning" href="{% url 'ELIMINAR' f.name %}"><i
+                            class="fa fa-trash-o"></i>Eliminar</a>
+                        </div>
+                    <div>
+                        <a class="btn btn-warning" href="{% url 'AGREGAR_CARRO' f.name %}"><i
+                                class="fa fa-cart-plus"></i>Agregar a
+                            Carro</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endfor %}
+-->
+
+<!--
+
+
+{% for f in listafloor %}
+<div class="row">
+    <div class="col-12 col-md-6 col-xl-4">
+        <div id="products" class="container">
+            <img src="{{ f.fotografia.url }}" class="card-img-top" alt="...">
+            <div class="product-info panel">
+                <h5 class="card-title">{{f.name}}</h5>
+                <p class="card-text">{{f.descripcion}}</p>
+            </div>
+            <ul class="redes">
+                <li class="list-group-item">Precio: ${{f.valor}}</li>
+
+            </ul>
+            <div class="card-body">
+                <a class="btn btn-warning" href="{% url 'ELIMINAR' f.name %}"><i
+                    class="fa fa-trash-o"></i>Eliminar</a>
+                    <a class="btn btn-warning" href="{% url 'AGREGAR_CARRO' f.name %}"><i
+                        class="fa fa-cart-plus"></i>Agregar a
+                    Carro</a>
             </div>
         </div>
-        {% endfor %}
+    </div>
+{% endfor %}
 
-    <h1>{{msg}}</h1>
+
+
+
+
+
+{% for f in listafloor %}
+<div class="row">
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card imgIndex" style="width: 30rem;">
+                <img src="{{ f.fotografia.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{f.name}}</h5>
+                    <p class="card-text">{{f.descripcion}}.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Precio: ${{f.valor}}</li>
+                </ul>
+                <div class="card-body">
+                        <div>
+                                <a class="btn btn-warning" href="{% url 'ELIMINAR' f.name %}"><i
+                                        class="fa fa-trash-o"></i> Eliminar</a>
+                            </div>
+                            <p></p>
+                            <div>
+                                <a class="btn btn-warning" href="{% url 'AGREGAR_CARRO' f.name %}"><i
+                                        class="fa fa-cart-plus"></i> Agregar a
+                                    Carro</a>
+                            </div>
+                </div>
+            </div>
+        </div>
+{% endfor %}
+-->
+
+
+
+
+<h1>{{msg}}</h1>
 {% endblock contenido %}
