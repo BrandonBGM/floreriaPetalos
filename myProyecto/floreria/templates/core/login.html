@@ -1,10 +1,13 @@
 {% extends "core/base.html" %}
 
 {% block titulo %}
-    Login de Acceso
+Login de Acceso
 {% endblock titulo %}
 
+{% load static %}
+
 {% block contenido %}
+<!--
 <h1>Formulario Login de Acceso</h1>
 <form name="formulario" method="POST" action="{% url 'LOGIN_INICIAR' %}">
     {% csrf_token %}
@@ -23,31 +26,36 @@
         </tr>
     </table>
 </form>
-
-<!--
-<div class="dropdown-menu">
-  <form class="px-4 py-3">
-    <div class="form-group">
-      <label for="exampleDropdownFormEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-    </div>
-    <div class="form-group">
-      <label for="exampleDropdownFormPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
+-->
+<h1 class="card-header" style="align-self: center; text-align: center;">Login de Acceso</h1>
+<div class="rowlogin">
+<div class="modal-dialog text-center">
+  <div class="col-sm-8 main-section">
+    <div class="modal-content">
+      <div class="col-12 user-img">
+        <img src="{% static 'core/img/logo.png' %}" class="logologin" alt="...">
+        <hr>
+      </div>
+      <form class="col-12" th:action="@{/login}" name="formulario" method="POST" action="{% url 'LOGIN_INICIAR' %}">
+        {% csrf_token %}
+        <div class="form-group" id="user-group">
+          <input type="text" class="form-control" placeholder="Nombre de usuario" name="txtUsuario" />
+        </div>
+        <div class="form-group" id="contrasena-group">
+          <input type="password" class="form-control" placeholder="Contraseña" name="txtPass" />
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary" value="Enviar"><i class="fas fa-sign-in-alt"></i> Ingresar
+        </button>
+      </form>
+      <hr>
+      <div class="col-12 forgot">
+        <a href="#">Recordar Contraseña?</a>
+        <hr>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">New around here? Sign up</a>
-  <a class="dropdown-item" href="#">Forgot password?</a>
+  </div>
 </div>
--->
+</div>
+</div>
 {% endblock contenido %}

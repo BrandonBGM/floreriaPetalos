@@ -15,7 +15,6 @@ def vacio_carrito(request):
 def home(request):
     return render(request,'core/home.html')
 
-
 def cerrar_sesion(request):
     logout(request)
     return HttpResponse("<script>alert('cerro sesion');window.location.href='/';</script>")
