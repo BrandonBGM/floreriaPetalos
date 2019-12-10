@@ -90,7 +90,7 @@ def formulario2(request):
     cate=Categoria.objects.all()
     if request.POST:
         nombre=request.POST.get("txtNombre")
-        estado=request.POST.get("txtEstado")
+        estado=request.POST.get("boolEstado")
         valor=request.POST.get("txtValor")
         descripcion=request.POST.get("txtDescripcion")
         stock=request.POST.get("txtStock")
