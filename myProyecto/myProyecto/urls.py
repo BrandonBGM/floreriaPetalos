@@ -21,13 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('floreria.urls')),
-<<<<<<< HEAD
     path('accounts/',include('django.contrib.auth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
-=======
-    path('oauth/', include('social_django.urls', namespace='social'))
-
->>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

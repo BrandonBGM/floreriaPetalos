@@ -17,38 +17,11 @@
 
         {% endblock titulo %}</title>
 </head>
-<<<<<<< HEAD
 
 <body>
     <script src="{% static 'core/js/jquery-3.4.1.js' %}"></script>
     <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
 
-=======
-
-<body>
-    <script src="{% static 'core/js/jquery-3.4.1.js' %}"></script>
-    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
-<!--
-<h1>Formulario Login de Acceso</h1>
-<form name="formulario" method="POST" action="{% url 'LOGIN_INICIAR' %}">
-    {% csrf_token %}
-    <table border="1">
-        <tr>
-            <td>Usuario:</td>
-            <td><input type="text" name="txtUsuario"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="txtPass"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Enviar"></td>
-            <td></td>
-        </tr>
-    </table>
-</form>
--->
->>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
 <h1 class="card-header" style="align-self: center; text-align: center;">Login de Acceso</h1>
 <div class="rowlogin">
 <div class="modal-dialog text-center">
@@ -74,12 +47,8 @@
       <div class="col-12 forgot">
         <a href="#">Recordar Contraseña?</a>
         <hr>
-<<<<<<< HEAD
-        <a href="{% url 'social:begin' 'facebook' %}">Login con facebook</a>
+        <a href="{% url 'social:begin' 'facebook' %}" class="fa fa-facebook-square fa-1.5x"> Login con facebook</a>
         <hr>
-=======
-        <a href="{% url 'social:begin' 'facebook' %}">Login con Facebook</a>
->>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
       </div>
     </div>
   </div>

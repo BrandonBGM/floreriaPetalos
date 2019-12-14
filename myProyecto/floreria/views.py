@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from .models import Categoria,Flor
+from .models import Categoria,Flor      
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponse
 from .forms import CustomUserForm
+
 # Create your views here.
 @login_required(login_url='/login/')
 def vacio_carrito(request):
@@ -63,16 +64,26 @@ def login_iniciar(request):
             if usu.is_staff:
                 auth_login(request, usu)
                 arreglo={'nombre':u, 'contrasena':p, 'tipo':'administrador'}
-                return render(request,'core/home.html')
+                return render(request,'core/home.html',arreglo)
             else:
                 arreglo={'nombre':u, 'contrasena':p, 'tipo':'cliente'}
-                return render(request,'core/home.html')
+                return render(request,'core/home.html',arreglo)
         variables={
             'msg':'no existe nada'
         }
     return render(request,'core/login.html',variables)
+   
+def login_iniciar(request):
+    if request.POST:
+        u=request.POST.get("txtUsuario")
+        p=request.POST.get("txtPass")
+        usu=authenticate(request,username=u,password=p)
+        if usu is not None and usu.is_active:
+            auth_login(request, usu)
+            return render(request,'core/home.html')
+    return render(request,'core/login.html')
     
-@login_required(login_url='/login/')
+@permission_required('core.delete_flor', login_url='/login/')
 def eliminar_flor(request,id):
     mensaje=''    
     flo=Flor.objects.get(name=id)
@@ -94,12 +105,12 @@ def galeria(request):
 def quienes_somos(request):
     return render(request,'core/quienes_somos.html')
 
-@login_required(login_url='/login/')
+@permission_required('core.add_flor', login_url='/login/')
 def formulario2(request):
     cate=Categoria.objects.all()
     if request.POST:
         nombre=request.POST.get("txtNombre")
-        estado=request.POST.get("boolEstado")
+        estado=request.POST.get("txtEstado")
         valor=request.POST.get("txtValor")
         descripcion=request.POST.get("txtDescripcion")
         stock=request.POST.get("txtStock")
@@ -119,7 +130,7 @@ def formulario2(request):
         return render(request,'core/formulario2.html',{'lista':cate,'msg':'grabo','sw':True})
     return render(request,'core/formulario2.html',{'lista':cate})
 
-@login_required(login_url='/login/')
+@permission_required('core.add_flor', login_url='/login/')
 def formulario(request):
     mensaje=''
     sw=False
@@ -153,6 +164,7 @@ def registro_usuario(request):
         formulario = CustomUserForm(request.POST)
         if formulario.is_valid():
             formulario.save()
+            #autenticar al usuario y redirigirlo al inicio
             u=formulario.cleaned_data['username']
             p=formulario.cleaned_data['password1']
             user=authenticate(request,username=u,password=p)

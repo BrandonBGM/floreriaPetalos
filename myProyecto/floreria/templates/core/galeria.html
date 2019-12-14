@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block titulo %}
-Galeria de Peliculas - Cine Romeo
+Galeria de Flores - Floreria Petalos
 {% endblock titulo %}
 
 {% load static %}
@@ -22,11 +22,12 @@ Galeria de Peliculas - Cine Romeo
           <div class="card-header">
           <h5 class="card-title">{{f.name}}</h5>
           </div>
-
           <div class="card-header">
-            <p class="card-text">{{f.descripcion}}</p>
+          <p class="card-text">Categoria:{{f.categoria}}</p>
           </div>
-
+          <div class="card-header">
+            <p class="card-text">Descripcion:{{f.descripcion}}</p>
+          </div>
           <div class="card-header">
           <p class="card-text">Precio: ${{f.valor}}</p>
           </div>
