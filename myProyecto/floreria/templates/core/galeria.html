@@ -1,40 +1,52 @@
 {% extends "core/base.html" %}
 
 {% block titulo %}
-    Galeria de Peliculas - Cine Romeo
+Galeria de Peliculas - Cine Romeo
 {% endblock titulo %}
 
 {% load static %}
 
 {% block contenido %}
 
-        <div class="text-center">
-            <h2>Listado Flores</h2>
-        </div>
-        <div id="productsView" class="container">
-            <h3>Rosa Azul</h3>
-            <img src="{% static 'core/img/rosaazul.png' %}">
-            <p>rosita azul del buya
-            </p>
-            <div>Ver Flor</div>
-            <div>
-                <a href="">Eliminar</a>
-            </div>
-        </div>
-        {% for f in listafloor %}
-        <div id="productsView" class="container">
-            <h3>{{f.name}}</h3>
-            <img src="{{ f.fotografia.url }}">
-            <p>{{f.descripcion}} </p>
-            <div>Ver Flor</div>
-            <div>
-                <a href="{% url 'ELIMINAR' f.name %}">Eliminar</a>
-            </div>
-            <div>
-                <a href="{% url 'AGREGAR_CARRO' f.name %}">Agregar a Carro</a>
-            </div>
-        </div>
-        {% endfor %}
 
-    <h1>{{msg}}</h1>
+<h1 class="card-header" style="align-self: center; text-align: center;">Galeria de Flores</h1>
+<section>
+{% for f in listafloor %}
+<div class="card mb-3" style="max-width: 1200px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="{{ f.fotografia.url }}" class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <div class="card-header">
+          <h5 class="card-title">{{f.name}}</h5>
+          </div>
+
+          <div class="card-header">
+            <p class="card-text">{{f.descripcion}}</p>
+          </div>
+
+          <div class="card-header">
+          <p class="card-text">Precio: ${{f.valor}}</p>
+          </div>
+          <p>
+            <div>
+                <a class="btn btn-warning" href="{% url 'AGREGAR_CARRO' f.name %}"><i
+                        class="fa fa-cart-plus"></i> Agregar al Carro</a>
+            </div>
+            <p></p>
+            <div>
+                <a class="btn btn-warning" href="{% url 'ELIMINAR' f.name %}"><i
+                        class="fa fa-trash-o"></i> Eliminar</a>
+            </div>    
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</section>
+
+<h1>{{msg}}</h1>
 {% endblock contenido %}

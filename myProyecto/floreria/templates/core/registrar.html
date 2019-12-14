@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block titulo %}
+Registro de usuario
+{% endblock titulo %}
+
+{% load static %}
+
+{% block contenido %}
+
+<body>
+    <div class="container">
+        <h1>Registro Usuario</h1>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <table>
+                {{form.as_table}}
+            </table>
+
+            <input type="submit" value="Registrar" class="btn btn-success">
+            <input type="reset" value="Limpiar" class="btn btn-info">
+        </form>
+    </div>
+</body>
+
+{% endblock contenido %}
+

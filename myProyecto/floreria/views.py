@@ -1,20 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Categoria,Flor
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,logout,login as auth_login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponse
+from .forms import CustomUserForm
 # Create your views here.
-
+@login_required(login_url='/login/')
 def vacio_carrito(request):
     request.session["carro"]=""
     lista=request.session.get("carrito","")
     return render(request,"core/carrito.html",{'lista':lista})
 
-@login_required(login_url='/login/')
+
 def home(request):
     return render(request,'core/home.html')
-
 
 def cerrar_sesion(request):
     logout(request)
@@ -60,9 +60,17 @@ def login_iniciar(request):
         p=request.POST.get("txtPass")
         usu=authenticate(request,username=u,password=p)
         if usu is not None and usu.is_active:
-            auth_login(request, usu)
-            return render(request,'core/home.html')
-    return render(request,'core/login.html')
+            if usu.is_staff:
+                auth_login(request, usu)
+                arreglo={'nombre':u, 'contrasena':p, 'tipo':'administrador'}
+                return render(request,'core/home.html')
+            else:
+                arreglo={'nombre':u, 'contrasena':p, 'tipo':'cliente'}
+                return render(request,'core/home.html')
+        variables={
+            'msg':'no existe nada'
+        }
+    return render(request,'core/login.html',variables)
     
 @login_required(login_url='/login/')
 def eliminar_flor(request,id):
@@ -77,12 +85,12 @@ def eliminar_flor(request,id):
     floor=Flor.objects.all()
     return render(request,'core/galeria.html',{'listafloor':floor,'msg':mensaje})
 
-@login_required(login_url='/login/')
+
 def galeria(request):
     floor=Flor.objects.all()
     return render(request, 'core/galeria.html',{'listafloor':floor})
 
-@login_required(login_url='/login/')
+
 def quienes_somos(request):
     return render(request,'core/quienes_somos.html')
 
@@ -136,3 +144,19 @@ def formulario(request):
 
     categorias=Categoria.objects.all()
     return render(request,'core/formulario.html',{'lista':categorias,'msg':mensaje,'sw':True})
+
+def registro_usuario(request):
+    data = {
+        'form':CustomUserForm()
+    }
+    if request.method == 'POST':
+        formulario = CustomUserForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            #autenticar al usuario y redirigirlo al inicio
+            u=formulario.cleaned_data['username']
+            p=formulario.cleaned_data['password1']
+            user=authenticate(request,username=u,password=p)
+            auth_login(request, user)
+            return redirect(to='HOME')
+    return render(request, 'core/registrar.html',data)

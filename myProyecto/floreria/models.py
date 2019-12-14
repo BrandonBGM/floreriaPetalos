@@ -10,7 +10,7 @@ class Categoria(models.Model):
 
 class Flor(models.Model):
     name=models.CharField(max_length=100, primary_key=True)
-    estado=models.BooleanField()
+    estado=models.TextField()
     valor=models.IntegerField()
     descripcion=models.TextField()
     stock=models.IntegerField()
