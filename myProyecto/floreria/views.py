@@ -99,7 +99,7 @@ def formulario2(request):
     cate=Categoria.objects.all()
     if request.POST:
         nombre=request.POST.get("txtNombre")
-        estado=request.POST.get("txtEstado")
+        estado=request.POST.get("boolEstado")
         valor=request.POST.get("txtValor")
         descripcion=request.POST.get("txtDescripcion")
         stock=request.POST.get("txtStock")
@@ -153,7 +153,6 @@ def registro_usuario(request):
         formulario = CustomUserForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            #autenticar al usuario y redirigirlo al inicio
             u=formulario.cleaned_data['username']
             p=formulario.cleaned_data['password1']
             user=authenticate(request,username=u,password=p)

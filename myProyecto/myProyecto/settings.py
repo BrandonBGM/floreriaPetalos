@@ -27,8 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+=======
+SOCIAL_AUTH_LOGIN_REDIRECT_URL='/'
+>>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
 
 SOCIAL_AUTH_FACEBOOK_KEY = '2484894481753504'
 SOCIAL_AUTH_FACEBOOK_SECRET = '98fe7594a03c807c25098b1531b6a53a'
@@ -133,8 +137,11 @@ STATIC_URL = '/static/'
 MEDIA_URL= '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+<<<<<<< HEAD
 SOCIAL_AUTH_LOGIN_REDIRECT_URL='/'
 
+=======
+>>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',

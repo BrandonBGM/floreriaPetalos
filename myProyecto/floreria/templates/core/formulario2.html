@@ -39,7 +39,7 @@
                         <tr>
                             <td>Categoria:</td>
                             <td>
-                                <select class="form-control" name="cboCategoria">
+                                <select class="form-control" name="cboCategoria" size="1">
                                      {% for datos in lista %}
                                      <option>{{datos.name}}</option>
                                      {% endfor %}
@@ -48,9 +48,23 @@
                         </tr>
                         <tr>
                             <td>Estado:</td>
+<<<<<<< HEAD
                             <td>
                             <input class="form-control" type="text" name="txtEstado" placeholder="Introduzca el Estado">
+=======
+                            <!--<td>
+                                <input class="form-control" type="text" name="txtEstado"
+                                    placeholder="Introduzca el estado del producto">
+                            </td>-->
+                            <td class="form-control"><input type="radio" name="boolEstado1" id="boolEstado1" checked>
+                                    <label>Disponible</label>
+                                <input type="radio" name="boolEstado2" id="boolEstado2" >
+                                    <label>No disponible</label>
+>>>>>>> 5f93c9acdca3e713822c5ada55fd5d7151f86234
                             </td>
+                            <!--<td class="form-control"><input type="radio" name="boolEstado" id="boolEstado" >
+                                
+                            </td>-->
                         </tr>
                         <!--<tr>
                             <td>Estado:</td>
