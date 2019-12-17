@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponse
 from .forms import CustomUserForm
+#rest_framework
+from rest_framework import viewsets
+from .serializers import FlorSerializers
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -171,3 +174,7 @@ def registro_usuario(request):
             auth_login(request, user)
             return redirect(to='HOME')
     return render(request, 'core/registrar.html',data)
+
+class FlorViewSet(viewsets.ModelViewSet):
+    queryset = Flor.objects.all()
+    serializer_class = FlorSerializers

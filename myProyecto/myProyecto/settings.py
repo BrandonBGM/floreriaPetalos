@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'floreria.apps.FloreriaConfig',
     'social_django',
     'pwa',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
