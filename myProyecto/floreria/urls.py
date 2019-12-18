@@ -15,4 +15,5 @@ urlpatterns = [
     path('carrito/',carrito,name='CARRITO'),
     path('vaciar_carrito/',vacio_carrito,name='VACIARCARRITO'),
     path('registro/',registro_usuario,name='REGISTRO'),
+    path('guardar-token/', guardar_token,name='guardar_token'),
 ]
