@@ -3,11 +3,17 @@ from .models import Categoria,Flor
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required,permission_required
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseBadRequest
 from .forms import CustomUserForm
 #rest_framework
 from rest_framework import viewsets
 from .serializers import FlorSerializers
+
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
+import json
+from fcm_django.models import FCMDevice
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -174,6 +180,32 @@ def registro_usuario(request):
             auth_login(request, user)
             return redirect(to='HOME')
     return render(request, 'core/registrar.html',data)
+
+@csrf_exempt
+@require_http_methods(['POST'])
+def guardar_token(request):
+    body = request.body.decode('utf-8')
+    bodyDict = json.loads(body)
+
+    token = bodyDict['token']
+    
+    existe = FCMDevice.objects.filter(registration_id = token, active=True)
+
+    if len(existe) > 0:
+        return HttpResponseBadRequest(json.dumps({'mensaje':'el token ya existe'}))
+
+    dispositivo = FCMDevice()
+    dispositivo.registration_id = token
+    dispositivo.active = True
+
+    if request.user.is_authenticated:
+        dispositivo.user = request.user
+
+    try:
+        dispositivo.save()
+        return HttpResponse(json.dumps({'mensaje':'token guardado'}))
+    except:
+        return HttpResponseBadRequest(json.dumps({'mensaje':'no se he podido guardar'}))
 
 class FlorViewSet(viewsets.ModelViewSet):
     queryset = Flor.objects.all()

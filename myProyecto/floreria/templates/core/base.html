@@ -21,7 +21,85 @@
     <title>
         {% block titulo %}
 
-        {% endblock titulo %}</title>
+        {% endblock titulo %}
+    </title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDUssE0m_zkQ8RbMyeQAjRPaZkfXIpG8K8",
+            authDomain: "floreriapetalos-9d3f1.firebaseapp.com",
+            databaseURL: "https://floreriapetalos-9d3f1.firebaseio.com",
+            projectId: "floreriapetalos-9d3f1",
+            storageBucket: "floreriapetalos-9d3f1.appspot.com",
+            messagingSenderId: "836835881577",
+            appId: "1:836835881577:web:9e82a61ccb524a1c8128f8"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        let messaging = firebase.messaging(); 
+
+        navigator.serviceWorker
+        .register('./serviceworker.js')
+        .then(function(register){
+
+            messaging.useServiceWorker(register);
+        
+            messaging.requestPermission()
+            .then(function() {
+                console.log("El usuario ha aceptado recibir notificaciones")
+
+                return messaging.getToken();
+            })
+            .then(function(token){
+                console.log(token);
+
+                fetch('guardar-token/',{
+                    method:'post',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                    body:JSON.stringify({
+                        'token':token
+                    })
+                })
+                .then(function(resultado){
+                    console.log("se ha guardado el token")
+                })
+                .catch(function(e){
+                    console.log("no se ha podido guardar el token")
+                })
+            })
+            .catch(function(e) {
+                console.log("El usuario no ha aceptado")
+            })
+        })
+
+        messaging.onMessage(function(payload){
+
+            let title = 'Titulo de la notificacion';
+
+            let options = {
+                body:'este es el mensaje',
+                icon:'/static/core/img/logo.png'
+            }
+            let mensaje = new Notificacion(title, options);
+        });
+
+
+
+
+    </script>    
+
 </head>
 
 <body>
