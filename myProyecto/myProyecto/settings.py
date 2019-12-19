@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'social_django',
     'pwa',
     'fcm_django',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate,logout,login as auth_login
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponse,HttpResponseBadRequest
 from .forms import CustomUserForm
+#rest_framework
+from rest_framework import viewsets
+from .serializers import FlorSerializers
 
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
@@ -203,3 +206,7 @@ def guardar_token(request):
         return HttpResponse(json.dumps({'mensaje':'token guardado'}))
     except:
         return HttpResponseBadRequest(json.dumps({'mensaje':'no se he podido guardar'}))
+        
+class FlorViewSet(viewsets.ModelViewSet):
+    queryset = Flor.objects.all()
+    serializer_class = FlorSerializers

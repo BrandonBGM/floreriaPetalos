@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path,include
 from .views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('flor', FlorViewSet)
 
 urlpatterns = [
     path('',home,name='HOME'),
@@ -16,4 +20,5 @@ urlpatterns = [
     path('vaciar_carrito/',vacio_carrito,name='VACIARCARRITO'),
     path('registro/',registro_usuario,name='REGISTRO'),
     path('guardar-token/', guardar_token,name='guardar_token'),
+    path('api/',include(router.urls)),
 ]
