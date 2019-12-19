@@ -24,17 +24,25 @@
         {% endblock titulo %}
     </title>
 
+<<<<<<< HEAD
 <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
 
 
+=======
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
+<<<<<<< HEAD
             apiKey: "AIzaSyAN57s1katQ0g2qsgzsBZkrs3cu7V6ZRCI",
             authDomain: "floreriapetalos-8f372.firebaseapp.com",
             databaseURL: "https://floreriapetalos-8f372.firebaseio.com",
@@ -42,10 +50,20 @@
             storageBucket: "floreriapetalos-8f372.appspot.com",
             messagingSenderId: "1054508423292",
             appId: "1:1054508423292:web:de3870d695b5d1e25f51f9"
+=======
+            apiKey: "AIzaSyDUssE0m_zkQ8RbMyeQAjRPaZkfXIpG8K8",
+            authDomain: "floreriapetalos-9d3f1.firebaseapp.com",
+            databaseURL: "https://floreriapetalos-9d3f1.firebaseio.com",
+            projectId: "floreriapetalos-9d3f1",
+            storageBucket: "floreriapetalos-9d3f1.appspot.com",
+            messagingSenderId: "836835881577",
+            appId: "1:836835881577:web:9e82a61ccb524a1c8128f8"
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
+<<<<<<< HEAD
         let messaging = firebase.messaging();
 
 
@@ -58,11 +76,25 @@
             messaging.requestPermission()
             .then(function () {
                 console.log("el usuario ha aceptado recibir notificaciones")
+=======
+        let messaging = firebase.messaging(); 
+
+        navigator.serviceWorker
+        .register('./serviceworker.js')
+        .then(function(register){
+
+            messaging.useServiceWorker(register);
+        
+            messaging.requestPermission()
+            .then(function() {
+                console.log("El usuario ha aceptado recibir notificaciones")
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
 
                 return messaging.getToken();
             })
             .then(function(token){
                 console.log(token);
+<<<<<<< HEAD
             })
             .catch(function (e) {
                 console.log("el usuario no ha aceptado")
@@ -73,14 +105,52 @@
         messaging.onMessage(function(payload){
 
             let title = 'titulo de la notificacion';
+=======
+
+                fetch('guardar-token/',{
+                    method:'post',
+                    headers:{
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                    body:JSON.stringify({
+                        'token':token
+                    })
+                })
+                .then(function(resultado){
+                    console.log("se ha guardado el token")
+                })
+                .catch(function(e){
+                    console.log("no se ha podido guardar el token")
+                })
+            })
+            .catch(function(e) {
+                console.log("El usuario no ha aceptado")
+            })
+        })
+
+        messaging.onMessage(function(payload){
+
+            let title = 'Titulo de la notificacion';
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
 
             let options = {
                 body:'este es el mensaje',
                 icon:'/static/core/img/logo.png'
             }
+<<<<<<< HEAD
             let mensaje = new Notification(title, options);
         });
     </script>
+=======
+            let mensaje = new Notificacion(title, options);
+        });
+
+
+
+
+    </script>    
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
 
 </head>
 

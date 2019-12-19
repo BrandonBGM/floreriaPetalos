@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'floreria.apps.FloreriaConfig',
     'social_django',
     'pwa',
+    'fcm_django',
     'rest_framework',
     'fcm_django',
 ]
@@ -147,9 +148,15 @@ AUTHENTICATION_BACKENDS = (
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'serviceworker.js')
 
 FCM_DJANGO_SETTINGS = {
+<<<<<<< HEAD
         "APP_VERBOSE_NAME": "floreriaPetalos",
          # default: _('FCM Django')
         "FCM_SERVER_KEY": "AIzaSyAN57s1katQ0g2qsgzsBZkrs3cu7V6ZRCI",
+=======
+        "APP_VERBOSE_NAME": "floreria",
+         # default: _('FCM Django')
+        "FCM_SERVER_KEY": "AIzaSyDUssE0m_zkQ8RbMyeQAjRPaZkfXIpG8K8",
+>>>>>>> 7df6a49e60a660c2de5e5de761613ad64521a451
          # true if you want to have only one active device per registered user at a time
          # default: False
         "ONE_DEVICE_PER_USER": False,
